@@ -11,11 +11,11 @@ var burger = {
 			cb(res);
 		});
 	},
-	delete: function(condition, cb) {
-		orm.delete("burgers", condition, function(res) {
-			cb(res);
-		});
-	}
+	update: function(id, cb) {
+    orm.update(id, function(res) {
+      cb(res);
+    });
+  },
 };
 
 

@@ -39,16 +39,12 @@ var orm = {
       cb(result);
     });
   },
-  delete: function(table, condition, cb) {
-    var queryString = "DELETE FROM " + table;
-    queryString += " WHERE ";
-    queryString += condition;
-
-    connection.query(queryString, function(err, result) {
+  // UPDATE burgers SET devoured = true WHERE id=22;
+  update: function(id, cb) {
+    connection.query("UPDATE burgers SET devoured = true WHERE ?", {id: id}, function(err, result) {
       if (err) {
         throw err;
       }
-
       cb(result);
     });
   }

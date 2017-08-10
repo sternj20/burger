@@ -1,34 +1,31 @@
 var express = require("express");
-var bodyParser = require("body-parser");
-var methodOverride = require("method-override");
-
-var port = process.env.PORT || 3000;
+var body = require("body-parser");
+var method = require("method-override");
+var exphbs = require("express-handlebars");
 var path = require("path");
 var app = express();
 
-// Serve static content for the app from the "public" directory in the application directory.
-app.use(express.static("public"));
+var router = require(path.join(__dirname, "controllers", "burgers_controller.js"));
 
-app.use(bodyParser.urlencoded({ extended: false }));
+var port = process.env.PORT || 7000;
 
-// Override with POST having ?_method=DELETE
-app.use(methodOverride("_method"));
-
-// Set Handlebars.
-var exphbs = require("express-handlebars");
-
+// Set Handlebars as the default templating engine.
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-// Import routes and give the server access to them.
-var routes = require(path.join(__dirname, "config", "connection.js"));
+app.use(method("_method"));
 
-app.use("/", routes);
+app.use(body.json()); // support json encoded bodies
+app.use(body.urlencoded({ extended: true })); // support encoded bodies
 
-app.listen(port, function() {
+app.use(express.static(path.join('public')));
+
+app.use("/", router);
+
+app.listen(port, function(error){
 	if (error){
 		return console.log(error);
 	}
-  console.log("App listening on PORT " + port);
-});
 
+	console.log("server is listening on http://localhost:%s", port);
+})

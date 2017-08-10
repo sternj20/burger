@@ -1,15 +1,12 @@
 // Set up MySQL connection.
 var mysql = require("mysql");
 var path = require("path");
-var keys = require(path.join(__dirname, "keys.json"));
 
 var connection;
 
 if(process.env.JAWSDB_URL) {
   connection = mysql.createConnection(process.env.JAWSDB_URL);
-} else {
-  connection = mysql.createConnection(keys);
-}
+} 
 
 // Make connection.
 connection.connect(function(err) {

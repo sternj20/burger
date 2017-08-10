@@ -28,4 +28,4 @@ app.listen(port, function(error){
 	}
 
 	console.log("server is listening on http://localhost:%s", port);
-})
+});

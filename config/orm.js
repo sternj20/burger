@@ -12,15 +12,23 @@ function printQuestionMarks(num) {
 }
 
 var orm = {
-	selectAll: function(table, cb){
-		connection.query('SELECT * FROM ??;',[table], function(err, result){
+	selectBurgersToEat: function(table, cb){
+		connection.query('SELECT * FROM ?? WHERE devoured=false;',[table], function(err, result){
 			if(err){
 				throw err;
 			}
 			cb(result);
 		});
 	},
-	insertOne: function(table, cols, vals, cb) {
+  selectDevouredBurgers: function(table, cb){
+    connection.query('SELECT * FROM ?? WHERE devoured=true;',[table], function(err, result){
+      if(err){
+        throw err;
+      }
+      cb(result);
+    });
+  },
+  insertOne: function(table, cols, vals, cb) {
     var queryString = "INSERT INTO " + table;
 
     queryString += " (";

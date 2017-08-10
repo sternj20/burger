@@ -5,13 +5,20 @@ var router = express.Router();
 var burger = require("../models/burger.js");
 
 router.get("/", function(req,res){
+  var hbsObject;
 	burger.all(function(data){
-		var hbsObject = {
+		hbsObject = {
 			burgers: data
 		};
-		console.log(hbsObject);
-		res.render("index", hbsObject);
+    burger.devoured(function(data){
+    hbsObject.devouredBurgers=data
+    
+    console.log(hbsObject);
+    res.render("index", hbsObject);
+  });
 	});
+  
+  
 });
 
 router.post("/", function(req, res) {

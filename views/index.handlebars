@@ -1,20 +1,30 @@
-<h1>Burgers</h1>
+<h1>Eat a burger!</h1>
 
-<ul>
-  {{#each burgers}}
+<div class = "burgersToEat">
+<h2>You can eat these burgers</h2>
+  <ul>
+    {{#each burgers}}
       <li>
         {{this.burger_name}}
         <form action="/{{this.id}}?_method=PUT" method="POST">
           <input type="hidden" name="id" value="{{this.id}}">
           <button type = "submit">Devour it</button>
-      	</form>
+        </form>
       </li>
+    {{/each}}
+  </ul>
+</div>
 
+<div class = "devouredBurgers">
+  <h2>These burgers have all been ate</h2>
+  <ul>
+    {{#each devouredBurgers}}
       <li>
-				{{this.devoured}}
+        {{this.burger_name}}
       </li>
-  {{/each}}
-</ul>
+    {{/each}}
+  </ul>
+</div>
 
 <form method ="post" action="/">
   <input type="text" name="burger_name">
